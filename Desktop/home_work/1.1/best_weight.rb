@@ -7,7 +7,7 @@ height = gets.chomp.to_i
 best_weight = height - 110
 
 if best_weight > = 0
-	puts "Привет #{ name }, твой идеальный вес #{ best_weight } кг"
+  puts "Привет #{ name }, твой идеальный вес #{ best_weight } кг"
 else 
-	puts "Привет #{ name }, твой вес уже оптимальный"
+  puts "Привет #{ name }, твой вес уже оптимальный"
 end

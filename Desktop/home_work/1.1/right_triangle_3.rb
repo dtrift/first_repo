@@ -8,16 +8,16 @@ puts "Введите длину стороны с"
 c = gets.chomp.to_f
 
 a, b, max = [a, b, c].sort
-rt = a**2 + b**2 == max**2  # Треугольник прямоугольный
-ds = a != b && b != c && a != c  # Треугольник разносторонний
-is = a == b && b == c && a == c  # Треугольник равнобедренный
+right_triangle = a**2 + b**2 == max**2  
+versatile_triangle = a != b && b != c && a != c  
+isosceles_triangle = a == b && b == c && a == c  
 
-if ds
-	puts "Треугольник с разными сторонами"
-elsif is
-	puts "Треугольник равнобедренный и равносторонний, не прямоугольный"
-elsif rt && ( a == b )
-	puts "Треугольник прямоугольный и равнобедренный"
+if versatile_triangle
+  puts "Треугольник с разными сторонами"
+elsif isosceles_triangle
+  puts "Треугольник равнобедренный и равносторонний, не прямоугольный"
+elsif right_triangle && ( a == b )
+  puts "Треугольник прямоугольный и равнобедренный"
 else 
-	puts "Треугольник равносторонний"
+  puts "Треугольник равносторонний"
 end
