@@ -16,7 +16,7 @@ if versatile_triangle
   puts "Треугольник с разными сторонами"
 elsif isosceles_triangle
   puts "Треугольник равнобедренный и равносторонний, не прямоугольный"
-elsif right_triangle && ( a == b )
+elsif right_triangle && (a == b)
   puts "Треугольник прямоугольный и равнобедренный"
 else 
   puts "Треугольник равносторонний"

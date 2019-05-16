@@ -8,10 +8,10 @@ puts "Введите значение с"
 c = gets.chomp.to_f
 
 d = b**2 - 4 * a * c
-k = Math.sqrt( d )
-x = - b / ( a * 2 )
-x1 = ( - b + k ) / ( a * 2 )
-x2 = ( - b - k ) / ( a * 2 )
+k = Math.sqrt(d)
+x = - b /(a * 2)
+x1 = (- b + k)/(a * 2)
+x2 = (- b - k)/(a * 2)
 
 if d < 0
   puts "Корней нет"
