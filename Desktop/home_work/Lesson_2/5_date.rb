@@ -29,7 +29,7 @@ puts t
 
 if year % 4 == 0 && year % 100 != 0 #&& year % 400 == 0 
   puts "#{ year } високосный год"
-  months_leap.store( "2", 29 )
+  months_leap.store("2", 29)
   puts months_leap
   months_leap.each do |mon, da| 
     if month == months_leap[da]
