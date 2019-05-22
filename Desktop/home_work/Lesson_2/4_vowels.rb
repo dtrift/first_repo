@@ -1,16 +1,10 @@
 vowels = ["a", "e", "i", "o", "u", "y"]
-hash_vowels = { }
-i = 0
+hash_vowels = {}
 
-for n in "a".."z" do
-  i += 1
-  vowels.each do |m|
-    if n == m
-    hash_vowels[n] = i 
-    end
+("a".."z").each_with_index do |let, index| 
+  if vowels.each { |x| x } == let  
+    index += 1
+    hash_vowels.store(let, index)
+    puts hash_vowels
   end
-end
-
-hash_vowels.each do |j|
-  print j
 end
