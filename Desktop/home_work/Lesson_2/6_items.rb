@@ -1,9 +1,8 @@
-items = { }
-arr = [ ]
-cost_bascket = 0
-cost_item = 0
+items = {}
+has = {}
+
 loop do 
-  puts "Введите стоп в названии товара для завершения"
+  puts "Введите 'стоп' в названии товара для завершения"
   puts "Введите название товара:"
   item = gets.chomp
   break if item == "стоп"
@@ -14,15 +13,13 @@ loop do
   puts "Введите количество товара:"
   quantity = gets.chomp.to_f
   
-  arr.push(price, quantity)
-  items.store(item, arr)
-  cost_item = price * quantity
-  cost_bascket += cost_item
-  puts "Стоимость #{ item } = #{ cost_item }"
-  arr = [ ]
+  has.store(price, quantity)
+  items.store(item, has)
+  puts "Стоимость #{ item } = #{ price * quantity }"
   puts items
-  cost_bascket += price
-  puts "Общая стоимость товаров в корзине #{ cost_bascket }"
+  items = { }
+  has.each do | price, quantity |
+    puts (quantity * price) + (quantity * price) 
+  end
 end
-  
-  
+ 
