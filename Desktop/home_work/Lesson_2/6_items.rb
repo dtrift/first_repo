@@ -1,11 +1,11 @@
 items = {}
-has = {}
+su = []
 
 loop do 
   puts "Введите 'стоп' в названии товара для завершения"
   puts "Введите название товара:"
   item = gets.chomp
-  break if item == "стоп"
+  break if item == "стоп" 
   
   puts "Введите цену товара:"
   price = gets.chomp.to_f
@@ -13,13 +13,10 @@ loop do
   puts "Введите количество товара:"
   quantity = gets.chomp.to_f
   
-  has.store(price, quantity)
-  items.store(item, has)
-  puts "Стоимость #{ item } = #{ price * quantity }"
-  puts items
-  items = { }
-  has.each do | price, quantity |
-    puts (quantity * price) + (quantity * price) 
-  end
+  items.store(item, [price, quantity]) 
+  a = price * quantity
+  su << a
+  puts "Стоимость #{ item } = #{ a }"
 end
- 
+puts items
+puts "Стоимость всех товаров в корзине - #{ su.sum }"
