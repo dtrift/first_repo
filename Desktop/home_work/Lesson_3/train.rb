@@ -1,9 +1,9 @@
 class Train
-  attr_reader :number, :type, :speed, :amount_wagons, :train_route # type == cargo = 1 || passenger = 0
-                                                                   # использовать type как булевую переменную? || .to_s
-  def initialize(number, type, amount_wagons = 1)
-    @number = number.to_s
-    @type = type.to_s
+  attr_reader :number, :type, :speed, :amount_wagons, :train_route 
+                                                                   
+  def initialize(number, type, amount_wagons = 1)T
+    @number = number
+    @type = type
     @amount_wagons = amount_wagons.to_i
     @speed = 0
     @train_route = []
@@ -26,9 +26,9 @@ class Train
     @train_route.each { |station| return station }
   end
     
-  def send(number)
-    if @train_route.any?
-      station.trains << number
+  def go_route(train)
+    if @train_route.any? 
+      station(@train_route[0]).get_trains << train 
     end
   end
   
