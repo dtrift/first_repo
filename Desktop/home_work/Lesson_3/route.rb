@@ -1,5 +1,5 @@
 class Route  
-  attr_reader :first_station, :last_station, :stations
+  attr_reader :name, :first_station, :last_station, :stations
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
@@ -13,11 +13,6 @@ class Route
   
   def delete_station(station)
     @stations.delete(station)
-  end
-  
-  def take_train(train)
-    @trains << train
-    train.add_route(self)
   end
   
 end

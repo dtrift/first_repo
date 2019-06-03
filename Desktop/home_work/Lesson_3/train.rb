@@ -1,13 +1,15 @@
 class Train
-  attr_reader :number, :type, :speed, :amount_wagons, :train_route 
+  attr_accessor :speed
+
+  attr_reader :number, :type, :amount_wagons, :train_route, :current_station 
                                                                    
-  def initialize(number, type, amount_wagons = 1)T
+  def initialize(number, type, amount_wagons = 1)
     @number = number
     @type = type
-    @amount_wagons = amount_wagons.to_i
+    @amount_wagons = amount_wagons
     @speed = 0
     @train_route = []
-    @error = "Ошибка! Количество вагонов должно быть > 1 !"
+    @current_station = current_station
   end
   
   def add_wagon
@@ -15,21 +17,21 @@ class Train
   end
   
   def delete_wagon
-    if @amount_wagons > 2 && @speed == 0
+    if @amount_wagons >= 2 && @speed == 0
       @amount_wagons -= 1  
-    else return @error
     end
   end
   
-  def add_route(route)
-    @train_route = route.stations
-    @train_route.each { |station| return station }
+  def get_route(route)
+    @train_route = route
+    route.first_station.get_train(self)
   end
     
-  def go_route(train)
-    if @train_route.any? 
-      station(@train_route[0]).get_trains << train 
-    end
+  def move_forward
+
+  end
+
+  def move_back
   end
   
 end

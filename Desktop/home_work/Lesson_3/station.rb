@@ -9,12 +9,13 @@ class Station
   end
   
   def get_train(train)
-    @trains << train
+    @trains << train 
     @list_types << train.type
   end
 
   def send_train(train)
     @trains.delete(train)
+    @list_types.delete(train.type)
   end
   
   def get_list_types
