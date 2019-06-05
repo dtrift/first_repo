@@ -27,7 +27,7 @@ class Train
     route.first_station.get_train(self)
     @train_route.stations.each do |station|
       if station.trains.include?(self)
-        @current_station = station.name 
+        @current_station = station 
       end
     end
   end
@@ -45,14 +45,33 @@ class Train
   end
 =end
 
-  def move_forward(station)
-    @current_station = @train_route.stations[index + 1]
+  def move_forward
+    ### @current_station.send_train(self)
+    @train_route.stations.each_with_index do |station|
+      if station.trains.include?(self)
+        @train_route.stations.index += 1
+        @current_station = station 
+      end
+    end
+    #@current_station = @train_route.stations.next
+    @current_station.get_train(self)
+    previous_station = @train_route.stations.at(-1) #?????
+    next_station = @train_route.stations.at(+1) #?????
+     #do |index| 
+      #index += 1
+      #@current_station = station.name
+    #@previous_station = @current_station.index { |index| index -= 1 }
+    #@next_station = @current_station.index { |index| index += 1 }
+    puts @current_station.name, previous_station.name, next_station.name
+    #return @current_station, @previous_station, @next_station
+    #end
+    #@current_station = @train_route.stations.index { |index| index += 1 }
     #@previos_station = @current_station index -1
     #@next_station = @current_station index + 1
     #puts @current_station
   end
   
-  def move_back(station)
+  def move_back
   end
   
 end
