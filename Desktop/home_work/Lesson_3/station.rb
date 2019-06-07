@@ -31,3 +31,8 @@ class Station
   end
 
 end
+
+  # station1 = Station.new 'station1'
+  # station2 = Station.new 'station2'
+  # station3 = Station.new 'station3'
+  # station4 = Station.new 'station4'
