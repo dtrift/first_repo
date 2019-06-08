@@ -8,8 +8,8 @@ class Train
     @type = type
     @amount_wagons = amount_wagons
     @speed = 0
-    @train_route = train_route
-    @current_station_index = current_station_index
+    @train_route = nil
+    @current_station_index = nil
   end
   
   def add_wagon
@@ -29,35 +29,31 @@ class Train
   end
   
   def move_forward
-    @train_route.stations[@current_station_index].send_train(self)
     @current_station_index += 1
-    current_station = @train_route.stations[current_station_index]
-    next_station_index = @current_station_index + 1
-    next_station = @train_route.stations[next_station_index]
-    previous_station_index = @current_station_index - 1
-    previous_station = @train_route.stations[previous_station_index]
     @train_route.stations.each_index do |index|
-      if @current_station_index == index
-        @train_route.stations[@current_station_index].get_train(self)
+      if @current_station_index == index 
+        @train_route.stations[index-1].send_train(self)
+        @train_route.stations[index].get_train(self)
+        previous_station = @train_route.stations[index-1]
+        current_station = @train_route.stations[index]
+        next_station = @train_route.stations[index+1] 
+        return previous_station.name, current_station.name, next_station.name 
       end
     end
-    return previous_station.name, current_station.name, next_station.name 
   end
   
   def move_back
-    @train_route.stations[@current_station_index].send_train(self)
     @current_station_index -= 1
-    current_station = @train_route.stations[current_station_index]
-    next_station_index = @current_station_index - 1
-    next_station = @train_route.stations[next_station_index]
-    previous_station_index = @current_station_index + 1
-    previous_station = @train_route.stations[previous_station_index]
     @train_route.stations.each_index do |index|
-      if @current_station_index == index
-        @train_route.stations[@current_station_index].get_train(self)
+      if @current_station_index == index 
+        @train_route.stations[index+1].send_train(self)
+        @train_route.stations[index].get_train(self)
+        previous_station = @train_route.stations[index+1]
+        current_station = @train_route.stations[index]
+        next_station = @train_route.stations[index-1]
+        return previous_station.name, current_station.name, next_station.name 
       end
     end 
-    return previous_station.name, current_station.name, next_station.name 
   end
 
 end
