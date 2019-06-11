@@ -16,7 +16,3 @@ class Route
   end
 
 end
-
-  # route1 = Route.new station1, station4
-  # route1.add_station station2
-  # route1.add_station station3

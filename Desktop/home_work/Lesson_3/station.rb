@@ -1,38 +1,29 @@
 class Station
-  attr_reader :name, :trains, :list_types
+  attr_reader :name, :trains, :cargo, :passenger
 
   def initialize(name)
     @name = name
     @trains = []
-    @list_types = []
-    
+    @cargo = 0
+    @passenger = 0
   end
   
   def get_train(train)
-    @trains << train 
-    @list_types << train.type
+    @trains << train
+    if train.type == :cargo
+      @cargo += 1
+    else @passenger += 1
+    return @cargo, @passenger
+    end
   end
 
   def send_train(train)
     @trains.delete(train)
-    @list_types.delete(train.type)
-  end
-  
-  def get_list_types
-    cargo = 0
-    passenger = 0
-    @list_types.each do |type|
-      if type == "cargo"
-        cargo += 1
-      else passenger += 1
-      return cargo, passenger
-      end
+    if train.type == :cargo
+      @cargo -= 1
+    else @passenger -= 1
+    return @cargo, @passenger
     end
   end
 
 end
-
-  # station1 = Station.new 'station1'
-  # station2 = Station.new 'station2'
-  # station3 = Station.new 'station3'
-  # station4 = Station.new 'station4'
