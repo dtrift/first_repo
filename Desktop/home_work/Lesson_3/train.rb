@@ -37,8 +37,8 @@ class Train
   end
 
   def previous_station
-    previous_station = @train_route.stations[@current_station_index - 1]
-    if @train_route.stations.include?(previous_station)
+    if @current_station_index > 0
+      previous_station = @train_route.stations[@current_station_index - 1]    
       return previous_station
     else return nil
     end
