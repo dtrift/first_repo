@@ -37,7 +37,7 @@ class Train
   end
   
   def move_forward
-    if @current_station_index < @train_route.stations.length   
+    if @current_station_index + 1 < @train_route.stations.length   
       @current_station_index += 1
       @train_route.stations[@current_station_index - 1].send_train(self)
       @train_route.stations[@current_station_index].get_train(self)
