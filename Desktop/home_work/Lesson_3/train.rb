@@ -29,34 +29,30 @@ class Train
   end
 
   def next_station
-    next_station = @train_route.stations[@current_station_index + 1]
-    if @train_route.stations.include?(next_station)
-      return next_station
-    else return nil
-    end
+    @train_route.stations[@current_station_index + 1] if @current_station_index + 1 < @train_route.stations.length 
   end
 
   def previous_station
-    if @current_station_index > 0
-      previous_station = @train_route.stations[@current_station_index - 1]    
-      return previous_station
-    else return nil
-    end
+    @train_route.stations[@current_station_index - 1] if @current_station_index - 1 > 0
   end
   
   def move_forward
-    @current_station_index += 1
-    @train_route.stations[@current_station_index - 1].send_train(self)
-    @train_route.stations[@current_station_index].get_train(self)
-    current_station = @train_route.stations[@current_station_index]
+    if @current_station_index < @train_route.stations.length   
+      @current_station_index += 1
+      @train_route.stations[@current_station_index - 1].send_train(self)
+      @train_route.stations[@current_station_index].get_train(self)
+      current_station = @train_route.stations[@current_station_index]
+    end
     return previous_station, current_station, next_station
   end
   
   def move_back
-    @current_station_index -= 1
-    @train_route.stations[@current_station_index + 1].send_train(self)
-    @train_route.stations[@current_station_index].get_train(self)
-    current_station = @train_route.stations[@current_station_index]
+    if @current_station_index > 0
+      @current_station_index -= 1
+      @train_route.stations[@current_station_index + 1].send_train(self)
+      @train_route.stations[@current_station_index].get_train(self)
+      current_station = @train_route.stations[@current_station_index]
+    end
     return previous_station, current_station, next_station
   end
 
