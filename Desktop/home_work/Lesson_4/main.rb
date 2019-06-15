@@ -8,6 +8,7 @@ require_relative 'route.rb'
 require_relative 'station.rb'
 
 class RailRoad
+  
   menu_item = nil
   loop do 
     puts
