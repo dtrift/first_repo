@@ -8,7 +8,7 @@ require_relative 'route.rb'
 require_relative 'station.rb'
 
 class RailRoad
-  
+
   menu_item = nil
   loop do 
     puts
@@ -26,7 +26,7 @@ class RailRoad
     puts "6. Отправить поезд по маршруту"
     puts "7. Показать список станций и список поездов на станции"
     puts "8. Выход"
-    menu_item = gets.chomp.to_i
+    menu_item = gets.to_i
     break if menu_item.(1..8)
   end
 
