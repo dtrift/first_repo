@@ -14,10 +14,10 @@ require_relative 'station.rb'
 
 def welcome
   puts
-  puts " ------    }    "
-  puts " |    |   ||    "
-  puts " |----|-------} "
-  puts " -O-O----O-O--} " 
+  puts " ------   }    "
+  puts " |    |  ||    "
+  puts " |----|------} "
+  puts " -O-O---O-O--} " 
   puts
   puts "Добро пожаловать в программу управления железной дорогой"
   puts
@@ -46,13 +46,13 @@ def main_menu
     when 3 
       manage_route
     when 4
-      send_train
+      assign_route
     when 5
       manage_wagon
     when 6
-      list_stations_trains
+      send_train
     when 7
-
+      list_stations_trains
     when 0
       exit
     end  
@@ -104,10 +104,13 @@ def manage_route
   #@routes << (Route.new first_station, last_station)
 end
 
-def send_train
+def assign_route
 end
 
 def manage_wagon
+end
+
+def send_train
 end
           
 def list_stations_trains
