@@ -1,7 +1,8 @@
 class Station
-  attr_reader :trains, :cargo, :passenger
+  attr_reader :name, :trains, :cargo, :passenger
 
-  def initialize
+  def initialize(name)
+    @name = name
     @trains = []
     @cargo = 0
     @passenger = 0
