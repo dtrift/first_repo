@@ -27,22 +27,22 @@ class Train
   end
 
   def current_station
-    @train_route.stations[@current_station_index]
+    @train_route.all_stations[@current_station_index]
   end
 
   def next_station
-    @train_route.stations[@current_station_index + 1] if next? 
+    @train_route.all_stations[@current_station_index + 1] if next? 
   end
 
   def previous_station
-    @train_route.stations[@current_station_index - 1] if previous?
+    @train_route.all_stations[@current_station_index - 1] if previous?
   end
   
   def move_forward
     if next?   
       @current_station_index += 1
-      @train_route.stations[@current_station_index - 1].send_train(self)
-      @train_route.stations[@current_station_index].get_train(self)
+      @train_route.all_stations[@current_station_index - 1].send_train(self)
+      @train_route.all_stations[@current_station_index].get_train(self)
     end
     return  current_station
   end
@@ -50,8 +50,8 @@ class Train
   def move_back
     if previous?
       @current_station_index -= 1
-      @train_route.stations[@current_station_index + 1].send_train(self)
-      @train_route.stations[@current_station_index].get_train(self)
+      @train_route.all_stations[@current_station_index + 1].send_train(self)
+      @train_route.all_stations[@current_station_index].get_train(self)
     end
     return current_station
   end
@@ -60,7 +60,7 @@ class Train
   attr_reader :current_station_index # переменная используется только внутри класса для
                                      # определения текущей, предыдущей и следующей станции
   def next?
-    @current_station_index + 1 < @train_route.stations.length
+    @current_station_index + 1 < @train_route.all_stations.length
   end
 
   def previous?
