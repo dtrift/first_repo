@@ -56,6 +56,7 @@ def main_menu
       list_stations_trains
     when 0
       exit
+    else "Выбери номер пункта меню!"
     end  
   end
 end
@@ -147,7 +148,7 @@ def edit_route
   @item_route = gets.chomp.to_i
   @route = @routes[@item_route-1]
   loop do
-    puts ""
+    puts " "
     puts "1. Добавить станцию в маршрут #{@route.name}"
     puts "2. Удалить станцию из маршрута #{@route.name}"
     puts "3. Вернуться в предыдущее меню"
@@ -158,18 +159,18 @@ def edit_route
     when 1 
       route_add_station
     when 2
-      route_del_station
+      route_delete_station
     when 3
       manage_route
     when 4
       main_menu
-    esle puts "Выбери 1, 2, 3 или 4"
+    else puts "Выбери 1, 2, 3 или 4"
     end
   end
 end
 
 def route_add_station
-  puts @route.name
+  puts @route.name  
   puts "Список станций для добавления в маршрут:"
   list_stations
   print "Введи номер станции для добавления в маршрут: "
@@ -178,7 +179,19 @@ def route_add_station
   puts station.name
   @route.add_station(station)
   puts "Список станций на маршруте #{@route.name}" 
-  puts "#{@route.all_stations.each { |st| print st, " " } } "
+  puts "#{@route.all_stations}"
+end
+
+def route_delete_station
+  puts @route.name
+  list_route_stations  
+  print "Введи номер станции для удаления из маршрута: "
+  station = gets.chomp.to_i
+  station = @stations[station-1]
+  puts station.name
+  @route.delete_station(station)
+  puts "Список станций на маршруте #{@route.name}" 
+  puts "#{@route.all_stations}"
 end
 
 def list_stations
@@ -186,22 +199,16 @@ def list_stations
     puts "#{index+1}. #{@stations[index]} - #{@stations[index].name}"
   end
 end
-  
-def list_route_stations
-  @route.all_stations.each.with_index do |station, index|
-    puts "#{index+1}. #{@stations[index]} - #{@stations[index].name}"
-  end
-end
-  
-def route_del_station
-  puts ""
-  puts ""
-  puts ""
-end
 
 def list_routes
   @routes.each.with_index do |route, index|
     puts "#{index+1}. #{@routes[index].name}"
+  end
+end
+  
+def list_route_stations
+  @route.all_stations.each.with_index do |station, index|
+    puts "#{index+1}. #{@route.all_stations[index]} - #{@route.all_stations[index].name}"
   end
 end
 
@@ -217,15 +224,23 @@ end
 def list_stations_trains
 end
 
-def seed 
+def seed
+  @trains << (train1 = Train.new 1, :cargo)
+  @trains << (train2 = Train.new 2, :passenger)
+  @trains << (train3 = Train.new 3, :cargo)
+  @trains << (train4 = Train.new 4, :passenger)
   @stations << (one = Station.new 'one')
   @stations << (two = Station.new 'two')
   @stations << (three = Station.new 'three')
   @stations << (four = Station.new 'four')
   @stations << (five = Station.new 'five')
   @stations << (six = Station.new 'six')
+  @routes << (one = Route.new 'one-six', one, six)
+  @routes << (two = Route.new 'two-five', two, five)
+  @routes << (three = Route.new 'one-four', one, four)
+  @routes << (four = Route.new 'three-six', three, six)
 end
 
-
-#welcome
-#main_menu
+seed
+welcome
+main_menu
