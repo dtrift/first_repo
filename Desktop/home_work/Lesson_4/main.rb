@@ -56,7 +56,7 @@ def main_menu
       list_stations_trains
     when 0
       exit
-    else "Выбери номер пункта меню!"
+    else puts "Выбери номер пункта меню!"
     end  
   end
 end
@@ -187,7 +187,7 @@ def route_delete_station
   list_route_stations  
   print "Введи номер станции для удаления из маршрута: "
   station = gets.chomp.to_i
-  station = @stations[station-1]
+  station = @route.all_stations[station-1]
   puts station.name
   @route.delete_station(station)
   puts "Список станций на маршруте #{@route.name}" 
