@@ -1,23 +1,23 @@
 class Train
   attr_accessor :speed
 
-  attr_reader :number, :type, :wagons, :train_route
+  attr_reader :number, :type, :all_wagons, :train_route
                                                                    
   def initialize(number, type = :type)
     @number = number
     @type = type
-    @wagons = []
+    @all_wagons = []
     @speed = 0
     @train_route = nil
     @current_station_index = nil
   end
   
   def add_wagon(wagon)
-    @wagons << wagon if @speed == 0 && train.type == wagon.type
+    @all_wagons << wagon if @speed == 0 && train.type == wagon.type
   end
   
   def delete_wagon(wagon)
-    @wagons.delete(wagon) if @speed == 0
+    @all_wagons.delete(wagon) if @speed == 0
   end
   
   def get_route(route)

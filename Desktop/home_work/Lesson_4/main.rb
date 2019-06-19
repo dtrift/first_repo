@@ -68,6 +68,13 @@ def create_train
   puts "Создание поезда"
   print "Введи название поезда: "
   number = gets.chomp
+  select_type
+  puts "***************************"
+  @trains << (Train.new number, type)
+  puts "Создан поезд #{number}, тип: #{type}"
+end
+
+def select_type
   loop do
     puts
     puts "1. Грузовой"
@@ -79,13 +86,10 @@ def create_train
       type = :cargo
     when 2
       type = :passenger
-    else puts "Неверно задан тип поезда. Выбери 1 или 2"
+    else puts "Неверно задан тип. Выбери 1 или 2"
     end
   break if type == :cargo || type == :passenger
   end
-  puts "***************************"
-  @trains << (Train.new number, type)
-  puts "Создан поезд #{number}, тип: #{type}"
 end
           
 def create_station
@@ -211,11 +215,67 @@ def list_route_stations
     puts "#{index+1}. #{@route.all_stations[index]} - #{@route.all_stations[index].name}"
   end
 end
+  
+def list_trains
+  @trains.each.with_index do |train, index|
+    puts "#{index+1}. #{@trains[index].number}"
+  end
+end
 
 def assign_route
+  train = nil
+  puts ""
+  puts "Список поездов: "
+  list_trains
+  print "Выбери поезд для добавления маршрута: "
+  train = gets.chomp.to_i
+  @train = @trains[train-1]
+  puts "Список маршрутов: "
+  list_routes
+  print "Выбери номер маршрута для добавления поезду #{@train.number}: "
+  @item_route = gets.chomp.to_i
+  @route = @routes[@item_route-1]
+  @train.get_route(@route)
+  puts "Поезду #{@train.number} добавлен маршрут #{@route.name} "
 end
 
 def manage_wagon
+  wagon_item = nil
+  loop do
+    puts
+    puts "Управление вагонами"
+    puts "********************"
+    puts "1. Создать вагон"
+    puts "2. Прицепить вагон"
+    puts "3. Отцепить вагон"
+    puts "4. Вернуться в главное меню"
+    print "Выбери номер меню: "
+    wagon_item = gets.chomp.to_i
+    case wagon_item
+    when 1 
+      create_wagon
+    when 2
+      hook_wagon
+    when 3
+      unhook_wagon
+    when 4
+      main_menu
+    else puts "Выбери 1, 2, 3 или 4"
+    end
+  end
+end
+    
+def create_wagon
+  puts "Создание вагона"
+  puts "********************"
+  select_type
+  @wagons << (Wagon.new type)
+end
+    
+def hook_wagon
+end
+
+def unhook_wagon
 end
 
 def send_train
@@ -243,4 +303,4 @@ end
 
 seed
 welcome
-main_menu
+#main_menu

@@ -21,7 +21,7 @@ class Station
   private 
 
   def get_type
-    if train.type == :cargo
+    if trains.type == :cargo
       @cargo += 1
     else @passenger += 1
     return @cargo, @passenger
