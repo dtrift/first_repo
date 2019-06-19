@@ -63,32 +63,32 @@ end
   
 def create_train
   number = nil
-  type = nil
   puts 
   puts "Создание поезда"
   print "Введи название поезда: "
   number = gets.chomp
   select_type
   puts "***************************"
-  @trains << (Train.new number, type)
-  puts "Создан поезд #{number}, тип: #{type}"
+  @trains << (Train.new number, @type)
+  puts "Создан поезд #{number}, тип: #{@type}"
 end
 
 def select_type
+  @type = nil
   loop do
     puts
     puts "1. Грузовой"
     puts "2. Пассажирский"
     print "Выбери тип поезда: "
-    type = gets.chomp.to_i  
-    case type 
+    @type = gets.chomp.to_i  
+    case @type 
     when 1
-      type = :cargo
+      @type = :cargo
     when 2
-      type = :passenger
+      @type = :passenger
     else puts "Неверно задан тип. Выбери 1 или 2"
     end
-  break if type == :cargo || type == :passenger
+  break if @type == :cargo || @type == :passenger
   end
 end
           
@@ -269,19 +269,46 @@ def create_wagon
   puts "Создание вагона"
   puts "********************"
   select_type
-  @wagons << (Wagon.new type)
+  @wagons << (Wagon.new @type)
+  puts "Создан вагон #{@type}"
 end
     
 def hook_wagon
+  train = nil
+  wagon = nil
+  puts "Список вагонов:"
+  @wagons.each.with_index do |wagon, index|
+    puts "#{index+1}. #{@wagons[index].type}"
+  end
+  print "Выбери вагон: "
+  wagon = gets.chomp.to_i
+  wagon = @wagons[wagon-1]
+  puts "Выбран вагон #{wagon}"
+  list_trains
+  print "Выбери поезд к которому прицепить вагон: "
+  train = gets.chomp.to_i
+  train = @trains[train-1]
+  train.add_wagon(wagon)
+  puts "Вагон #{wagon} прицеплен к поезду #{train}"
 end
 
 def unhook_wagon
+
 end
 
 def send_train
+
 end
           
 def list_stations_trains
+  puts "Список станций"
+  list_stations
+  print "Введи номер станци для просмотра: "
+  st = gets.chomp.to_i
+  st = @stations[st-1] 
+  print "На станции #{st.name} находятся поезда: " 
+  st.all_trains.each { |at| print at, " " }
+  puts 
 end
 
 def seed
@@ -303,4 +330,4 @@ end
 
 seed
 welcome
-#main_menu
+main_menu

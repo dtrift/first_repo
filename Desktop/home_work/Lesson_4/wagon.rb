@@ -6,7 +6,7 @@ class Wagon
   end
 
   def current_train 
-    train if train.wagons.include?(self)
+    @train if @train.all_wagons.include?(self)
   end
 
 end
