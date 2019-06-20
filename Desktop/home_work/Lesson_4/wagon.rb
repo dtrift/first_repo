@@ -1,5 +1,5 @@
 class Wagon
-  attr_reader :type, :current_train
+  attr_reader :current_train
 
   def initialize
     @current_train = nil

@@ -68,8 +68,13 @@ def create_train
   number = gets.chomp
   select_type
   puts "***************************"
-  @trains << (Train.new number, @type)
-  puts "Создан поезд #{number}, тип: #{@type}"
+  if @type == :cargo
+    @trains << (TrainCargo.new number, @type)  
+    puts "Создан поезд - #{number}, тип - грузовой"
+  else 
+    @trains << (TrainPassenger.new number, @type)
+    puts "Создан поезд - #{number}, тип - пассажирсикй"
+  end
 end
 
 def select_type

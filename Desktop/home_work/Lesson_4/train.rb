@@ -1,11 +1,10 @@
 class Train
   attr_accessor :speed
 
-  attr_reader :number, :type, :all_wagons, :train_route, :current_station_index
+  attr_reader :number, :all_wagons, :train_route, :current_station_index
                                                                    
-  def initialize(number, type = :type)
+  def initialize(number)
     @number = number
-    @type = type
     @all_wagons = []
     @speed = 0
     @train_route = nil
