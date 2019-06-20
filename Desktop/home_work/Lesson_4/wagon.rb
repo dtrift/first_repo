@@ -1,12 +1,16 @@
 class Wagon
-  attr_reader :type
+  attr_reader :type, :current_train
 
-  def initialize(type = :type)
-    @type = type
+  def initialize
+    @current_train = nil
   end
 
-  def current_train 
-    @train if @train.all_wagons.include?(self)
+  def current_train
+    @trains.each do |train| 
+      if train.all_wagons.include?(self)
+        @current_train = train
+      end
+    end
   end
 
 end

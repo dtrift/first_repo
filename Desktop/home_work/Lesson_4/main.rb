@@ -25,7 +25,6 @@ def welcome
 end
 
 def main_menu
-  menu_item = nil
   loop do 
     puts
     puts "Mеню:"
@@ -62,9 +61,9 @@ def main_menu
 end
   
 def create_train
-  number = nil
-  puts 
+  puts
   puts "Создание поезда"
+  puts "********************"
   print "Введи название поезда: "
   number = gets.chomp
   select_type
@@ -76,7 +75,7 @@ end
 def select_type
   @type = nil
   loop do
-    puts
+    puts "Типы:"
     puts "1. Грузовой"
     puts "2. Пассажирский"
     print "Выбери тип поезда: "
@@ -93,9 +92,10 @@ def select_type
 end
           
 def create_station
-  name = nil
-  puts 
+  name = nil 
+  puts
   puts "Создание станции"
+  puts "********************"
   print "Введи название станции: "
   name = gets.chomp
   @stations << (Station.new name)
@@ -108,8 +108,10 @@ def manage_route
   name = nil
   first_station = nil
   last_station = nil
-  loop do 
-    puts
+  loop do
+    puts 
+    puts "Управление маршрутами"
+    puts "********************"
     puts "1. Создать маршрут"
     puts "2. Редактировать маршрут"
     puts "3. Вернуться в главное меню"
@@ -128,6 +130,9 @@ def manage_route
 end
 
 def create_route
+  puts
+  puts "Создание маршрута"
+  puts "********************"
   print "Введи название маршрута: "
   name = gets.chomp
   list_stations
@@ -146,13 +151,15 @@ def create_route
 end
 
 def edit_route
+  puts
+  puts "Редактирование маршрута"
+  puts "********************" 
   puts "Список маршрутов для редактирования:"
   list_routes
   print "Выбери номер маршрута для редактирования: "
   @item_route = gets.chomp.to_i
   @route = @routes[@item_route-1]
   loop do
-    puts " "
     puts "1. Добавить станцию в маршрут #{@route.name}"
     puts "2. Удалить станцию из маршрута #{@route.name}"
     puts "3. Вернуться в предыдущее меню"
@@ -174,20 +181,23 @@ def edit_route
 end
 
 def route_add_station
-  puts @route.name  
+  puts
+  puts "Добавление станции в маршрут #{@route.name}"
+  puts "********************" 
   puts "Список станций для добавления в маршрут:"
   list_stations
   print "Введи номер станции для добавления в маршрут: "
   station = gets.chomp.to_i
   station = @stations[station-1]
-  puts station.name
   @route.add_station(station)
   puts "Список станций на маршруте #{@route.name}" 
   puts "#{@route.all_stations}"
 end
 
 def route_delete_station
-  puts @route.name
+  puts
+  puts "Удаление станции из маршрута #{@route.name}"
+  puts "********************"
   list_route_stations  
   print "Введи номер станции для удаления из маршрута: "
   station = gets.chomp.to_i
@@ -224,7 +234,9 @@ end
 
 def assign_route
   train = nil
-  puts ""
+  puts
+  puts "Добавление маршрута поезду"
+  puts "********************"
   puts "Список поездов: "
   list_trains
   print "Выбери поезд для добавления маршрута: "
@@ -235,8 +247,11 @@ def assign_route
   print "Выбери номер маршрута для добавления поезду #{@train.number}: "
   @item_route = gets.chomp.to_i
   @route = @routes[@item_route-1]
-  @train.get_route(@route)
-  puts "Поезду #{@train.number} добавлен маршрут #{@route.name} "
+  if @train.train_route.nil?
+    @train.get_route(@route)
+    puts "Поезду #{@train.number} добавлен маршрут #{@route.name}"
+  else puts "Ошибка! У поезда #{@train.number} уже есть маршрут #{@train.train_route}!"
+  end
 end
 
 def manage_wagon
@@ -266,6 +281,7 @@ def manage_wagon
 end
     
 def create_wagon
+  puts
   puts "Создание вагона"
   puts "********************"
   select_type
@@ -274,12 +290,11 @@ def create_wagon
 end
     
 def hook_wagon
-  train = nil
-  wagon = nil
+  puts
+  puts "Прицепление вагона к поезду"
+  puts "********************"
   puts "Список вагонов:"
-  @wagons.each.with_index do |wagon, index|
-    puts "#{index+1}. #{@wagons[index].type}"
-  end
+  list_wagons
   print "Выбери вагон: "
   wagon = gets.chomp.to_i
   wagon = @wagons[wagon-1]
@@ -288,20 +303,77 @@ def hook_wagon
   print "Выбери поезд к которому прицепить вагон: "
   train = gets.chomp.to_i
   train = @trains[train-1]
-  train.add_wagon(wagon)
-  puts "Вагон #{wagon} прицеплен к поезду #{train}"
+  if train.type == wagon.type
+    train.add_wagon(wagon)
+    puts "Вагон #{wagon} прицеплен к поезду #{train}"
+    puts train.all_wagons
+  else puts "Поезд #{train.type} и вагон #{wagon.type} несовместимы!"
+  end
 end
 
 def unhook_wagon
-
+  puts
+  puts "Отцепление вагона от поезда"
+  puts "********************"
+  puts "Список вагонов:"
+  list_wagons
+  print "Выбери вагон: "
+  wagon = gets.chomp.to_i
+  wagon = @wagons[wagon-1]
+  puts "Выбран вагон #{wagon}"
+  @trains.each do |train|
+    if train.all_wagons.include?(wagon)
+      train.delete_wagon(wagon)
+      puts train.all_wagons
+    else puts "Вагон не прицеплен к поезду"
+    end
+  end
 end
 
 def send_train
+  puts "Движение поезда по маршруту"
+  puts "********************"
+  list_trains
+  print "Выбери поезд для движения по маршруту: "
+  train = gets.chomp.to_i
+  train = @trains[train-1]
+  puts "Маршрут поезда #{train} - #{train.train_route}"
+  puts "Текущая станция #{train.current_station.name}"
+  loop do
+    puts "Следующее действие:"
+    puts "1. Двигать поезд вперёд"
+    puts "2. Двигать поезд назад"
+    puts "0. Выход"
+    print "Выбери следующее действие: "
+    move_item = gets.chomp.to_i
+    case move_item
+    when 1 
+      train.move_forward
+      puts "Предыдущая станция - #{train.previous_station.name}" if train.previous_station != nil
+      puts "Текущая станция - #{train.current_station.name}"
+      puts "Следующая станция - #{train.next_station.name}" if train.next_station != nil
+    when 2
+      train.move_back 
+      puts "Предыдущая станция - #{train.previous_station.name}" if train.previous_station != nil
+      puts "Текущая станция - #{train.current_station.name}"
+      puts "Следующая станция - #{train.next_station.name}" if train.next_station != nil
+    when 0 
+      main_menu
+    else "Выбери 1, 2 или 0"
+    end
+  end
+end
 
+def list_wagons
+  @wagons.each.with_index do |wagon, index|
+    puts "#{index+1}. #{@wagons[index].type}"
+  end
 end
           
 def list_stations_trains
+  puts
   puts "Список станций"
+  puts "********************"
   list_stations
   print "Введи номер станци для просмотра: "
   st = gets.chomp.to_i

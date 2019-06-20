@@ -1,7 +1,7 @@
 class TrainPassenger < Train
 
   def type
-    :cargo
+    :passenger
   end
  
 end

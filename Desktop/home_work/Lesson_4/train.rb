@@ -1,7 +1,7 @@
 class Train
   attr_accessor :speed
 
-  attr_reader :number, :type, :all_wagons, :train_route
+  attr_reader :number, :type, :all_wagons, :train_route, :current_station_index
                                                                    
   def initialize(number, type = :type)
     @number = number
@@ -13,7 +13,7 @@ class Train
   end
   
   def add_wagon(wagon)
-    @all_wagons << wagon if @speed == 0 && self.type == wagon.type
+    @all_wagons << wagon if @speed == 0 #&& self.type == wagon.type
   end
   
   def delete_wagon(wagon)
@@ -56,8 +56,8 @@ class Train
     return current_station
   end
 
-  private 
-  attr_reader :current_station_index # переменная используется только внутри класса для
+  #private 
+  #attr_reader :current_station_index # переменная используется только внутри класса для
                                      # определения текущей, предыдущей и следующей станции
   def next?
     @current_station_index + 1 < @train_route.all_stations.length
