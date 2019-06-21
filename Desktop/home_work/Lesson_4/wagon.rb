@@ -1,7 +1,7 @@
 class Wagon
   attr_reader :current_train
 
-  def initialize
+  def initialize(type)
     @current_train = nil
   end
 

@@ -389,10 +389,10 @@ def list_stations_trains
 end
 
 def seed
-  @trains << (train1 = Train.new 1, :cargo)
-  @trains << (train2 = Train.new 2, :passenger)
-  @trains << (train3 = Train.new 3, :cargo)
-  @trains << (train4 = Train.new 4, :passenger)
+  @trains << (train1 = TrainCargo.new 1, :cargo)
+  @trains << (train2 = TrainPassenger.new 2, :passenger)
+  @trains << (train3 = TrainCargo.new 3, :cargo)
+  @trains << (train4 = TrainPassenger.new 4, :passenger)
   @stations << (one = Station.new 'one')
   @stations << (two = Station.new 'two')
   @stations << (three = Station.new 'three')
