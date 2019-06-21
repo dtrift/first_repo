@@ -377,7 +377,6 @@ def send_train
   end
 end
 
-#if @wagons[index]. current_train != nil
 def list_wagons
   @wagons.each.with_index do |wagon, index|
     puts "#{index+1}. Вагон #{@wagons[index].type} => поезд: #{@wagons[index].current_train}"  
