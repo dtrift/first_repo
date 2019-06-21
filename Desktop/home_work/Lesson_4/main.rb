@@ -69,10 +69,10 @@ def create_train
   select_type
   puts "***************************"
   if @type == :cargo
-    @trains << (TrainCargo.new number, @type)  
+    @trains << (TrainCargo.new number)  
     puts "Создан поезд - #{number}, тип - грузовой"
   else 
-    @trains << (TrainPassenger.new number, @type)
+    @trains << (TrainPassenger.new number)
     puts "Создан поезд - #{number}, тип - пассажирсикй"
   end
 end
@@ -140,6 +140,7 @@ def create_route
   puts "********************"
   print "Введи название маршрута: "
   name = gets.chomp
+  puts "Список станций:"
   list_stations
   print "Выбери номер начальной станции: "
   first_station = gets.chomp.to_i
@@ -221,7 +222,7 @@ end
 
 def list_routes
   @routes.each.with_index do |route, index|
-    puts "#{index+1}. #{@routes[index].name}"
+    puts "#{index+1}. #{@routes[index].name} - #{@routes[index].all_stations}"
   end
 end
   
@@ -233,7 +234,7 @@ end
   
 def list_trains
   @trains.each.with_index do |train, index|
-    puts "#{index+1}. #{@trains[index].number}"
+    puts "#{index+1}. Поезд #{@trains[index].number} - тип #{@trains[index].type}"
   end
 end
 
@@ -290,7 +291,10 @@ def create_wagon
   puts "Создание вагона"
   puts "********************"
   select_type
-  @wagons << (Wagon.new @type)
+  if @type == :cargo
+    @wagons << (WagonCargo.new)
+  else @wagons << (WagonPassenger.new)
+  end
   puts "Создан вагон #{@type}"
 end
     
@@ -389,10 +393,10 @@ def list_stations_trains
 end
 
 def seed
-  @trains << (train1 = TrainCargo.new 1, :cargo)
-  @trains << (train2 = TrainPassenger.new 2, :passenger)
-  @trains << (train3 = TrainCargo.new 3, :cargo)
-  @trains << (train4 = TrainPassenger.new 4, :passenger)
+  @trains << (train1 = TrainCargo.new 1)
+  @trains << (train2 = TrainPassenger.new 2)
+  @trains << (train3 = TrainCargo.new 3)
+  @trains << (train4 = TrainPassenger.new 4)
   @stations << (one = Station.new 'one')
   @stations << (two = Station.new 'two')
   @stations << (three = Station.new 'three')
@@ -401,8 +405,6 @@ def seed
   @stations << (six = Station.new 'six')
   @routes << (one = Route.new 'one-six', one, six)
   @routes << (two = Route.new 'two-five', two, five)
-  @routes << (three = Route.new 'one-four', one, four)
-  @routes << (four = Route.new 'three-six', three, six)
 end
 
 seed
