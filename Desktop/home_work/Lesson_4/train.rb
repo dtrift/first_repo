@@ -13,6 +13,7 @@ class Train
   
   def add_wagon(wagon)
     @all_wagons << wagon if @speed == 0 
+  end
   
   def delete_wagon(wagon)
     @all_wagons.delete(wagon) if @speed == 0
