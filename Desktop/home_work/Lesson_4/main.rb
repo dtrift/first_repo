@@ -312,11 +312,15 @@ def hook_wagon
   print "Выбери поезд к которому прицепить вагон: "
   train = gets.chomp.to_i
   train = @trains[train-1]
-  if train.type == wagon.type
-    train.add_wagon(wagon)
-    puts "Вагон #{wagon} прицеплен к поезду #{train}"
-    puts train.all_wagons
-  else puts "Поезд #{train.type} и вагон #{wagon.type} несовместимы!"
+  if wagon.current_train == nil
+    if train.type == wagon.type
+      train.add_wagon(wagon)
+      wagon.get_current_train(train)
+      puts "Вагон #{wagon} прицеплен к поезду #{train}"
+      puts train.all_wagons
+    else puts "Ошибка! Поезд #{train.type} и вагон #{wagon.type} несовместимы!"
+    end
+  else puts "Ошибка! Вагон уже прицеплен к поезду #{wagon.current_train}"
   end
 end
 
@@ -332,9 +336,9 @@ def unhook_wagon
   puts "Выбран вагон #{wagon}"
   @trains.each do |train|
     if train.all_wagons.include?(wagon)
+      wagon.del_current_train
       train.delete_wagon(wagon)
-      puts train.all_wagons
-    else puts "Вагон не прицеплен к поезду"
+    puts "Вагон #{wagon} отцеплен от поезда #{train}"
     end
   end
 end
@@ -373,9 +377,10 @@ def send_train
   end
 end
 
+#if @wagons[index]. current_train != nil
 def list_wagons
   @wagons.each.with_index do |wagon, index|
-    puts "#{index+1}. #{@wagons[index].type}"
+    puts "#{index+1}. Вагон #{@wagons[index].type} => поезд: #{@wagons[index].current_train}"  
   end
 end
           

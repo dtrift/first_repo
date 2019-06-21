@@ -1,12 +1,16 @@
 class Wagon
   attr_reader :current_train
 
-  def current_train
-    @trains.each do |train| 
-      if train.all_wagons.include?(self)
-       return @current_train = train
-      end
-    end
+  def initialize
+    @current_train = nil
+  end
+
+  def get_current_train(train)
+    @current_train = train.number
+  end
+
+  def del_current_train
+    @current_train = nil
   end
 
 end
