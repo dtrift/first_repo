@@ -1,5 +1,5 @@
 class Train
-  include FactoryName
+  include Factory
   include InstanceCounter
 
   attr_accessor :speed
@@ -7,7 +7,7 @@ class Train
   attr_reader :number, :all_wagons, :train_route, :current_station_index
 
   def self.find(number)
-    number if train.include?.number
+    train.number if train.include?(number)
   end
                                                                    
   def initialize(number)

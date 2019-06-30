@@ -2,7 +2,7 @@ class Station
   include InstanceCounter
   attr_reader :name, :all_trains, :cargo, :passenger
 
-  @@all_stations = nil
+  @@all_stations = []
 
   def self.all
     @@all_stations

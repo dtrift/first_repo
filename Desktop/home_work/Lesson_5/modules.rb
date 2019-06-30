@@ -1,4 +1,4 @@
-module FactoryName
+module Factory
 
   def set_factory_name(name)
     self.factory_name = name
@@ -31,7 +31,7 @@ module InstanceCounter
   protected
   module InstanceMethods
     def register_instance
-      self.class.@@instances += 1    
+      @@instances += 1    
     end
   end
 

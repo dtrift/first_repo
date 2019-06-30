@@ -1,6 +1,6 @@
 class Wagon
-  include FactoryName
-  
+  include Factory
+
   attr_reader :current_train
 
   def initialize
