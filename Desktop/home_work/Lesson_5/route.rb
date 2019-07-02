@@ -8,6 +8,8 @@ class Route
     @all_stations = [first_station, last_station]
     @first_station = first_station
     @last_station = last_station
+    @sum = 0
+    register_instance
   end
 
   def add_station(station)
