@@ -18,9 +18,8 @@ class Train
     @speed = 0
     @train_route = nil
     @current_station_index = nil
-    
-    @sum  = 0
-    register_instance
+    self.class.register_instance
+    self.class.instances
     @@all << self
   end
   
