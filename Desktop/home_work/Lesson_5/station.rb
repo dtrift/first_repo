@@ -14,7 +14,6 @@ class Station
     @cargo = 0
     @passenger = 0
     @@all << self
-    @sum = 0
     register_instance
   end
   

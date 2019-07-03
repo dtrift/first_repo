@@ -18,8 +18,8 @@ class Train
     @speed = 0
     @train_route = nil
     @current_station_index = nil
-    register_instance
     @@all << self
+    register_instance
   end
   
   def add_wagon(wagon)

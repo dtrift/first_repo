@@ -18,10 +18,13 @@ module InstanceCounter
   end
 
   module InstanceMethods
+
     protected
+    
     def register_instance
       self.class.increase_instance_counter   
     end
+
   end
 
 end
