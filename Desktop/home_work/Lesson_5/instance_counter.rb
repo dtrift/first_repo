@@ -6,18 +6,21 @@ module InstanceCounter
   end
 
   module ClassMethods
-    attr_writer :sum
-    @sum ||=0
+
     def instances
-      @sum
+      @instances ||= 0
     end
+
+    def increase_instance_counter
+      @instances += 1
+    end
+
   end
 
   module InstanceMethods
-    #@sum ||= 0  
     protected
     def register_instance
-      @sum += 1    
+      self.class.increase_instance_counter   
     end
   end
 
