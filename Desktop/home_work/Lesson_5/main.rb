@@ -398,21 +398,21 @@ def list_stations_trains
   puts 
 end
 
-def seed
-  @trains << (train1 = TrainCargo.new 1)
-  @trains << (train2 = TrainPassenger.new 2)
-  @trains << (train3 = TrainCargo.new 3)
-  @trains << (train4 = TrainPassenger.new 4)
-  @stations << (one = Station.new 'one')
-  @stations << (two = Station.new 'two')
-  @stations << (three = Station.new 'three')
-  @stations << (four = Station.new 'four')
-  @stations << (five = Station.new 'five')
-  @stations << (six = Station.new 'six')
-  @routes << (one = Route.new 'one-six', one, six)
-  @routes << (two = Route.new 'two-five', two, five)
-end
+#def seed
+  #@trains << (train1 = TrainCargo.new 1)
+  #@trains << (train2 = TrainPassenger.new 2)
+  #@trains << (train3 = TrainCargo.new 3)
+  #@trains << (train4 = TrainPassenger.new 4)
+  #@stations << (one = Station.new 'one')
+  #@stations << (two = Station.new 'two')
+  #@stations << (three = Station.new 'three')
+  #@stations << (four = Station.new 'four')
+  #@stations << (five = Station.new 'five')
+  #@stations << (six = Station.new 'six')
+  #@routes << (one = Route.new 'one-six', one, six)
+  #@routes << (two = Route.new 'two-five', two, five)
+#end
 
 seed
 welcome
-#main_menu
+main_menu
