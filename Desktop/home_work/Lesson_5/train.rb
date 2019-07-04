@@ -6,10 +6,10 @@ class Train
 
   attr_reader :number, :all_wagons, :train_route, :current_station_index
 
-  @@all = []
+  @@all = {}
 
   def self.find(number)
-    @@all.each { |train| return train if train.number == number } 
+    @@all.each { |key, train| return train if key == number } 
   end
                                                                    
   def initialize(number)
@@ -18,7 +18,7 @@ class Train
     @speed = 0
     @train_route = nil
     @current_station_index = nil
-    @@all << self
+    @@all.store(number, self)
     register_instance
   end
   

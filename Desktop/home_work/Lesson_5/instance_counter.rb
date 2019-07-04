@@ -12,6 +12,7 @@ module InstanceCounter
     end
 
     def increase_instance_counter
+      @instances ||= 0
       @instances += 1
     end
 
@@ -20,7 +21,7 @@ module InstanceCounter
   module InstanceMethods
 
     protected
-    
+
     def register_instance
       self.class.increase_instance_counter   
     end
