@@ -63,11 +63,16 @@ def main_menu
 end
   
 def create_train
-  puts
-  puts "Создание поезда"
-  puts "********************"
-  print "Введи номер поезда в формате Q5z-Rs, 6Y5-d9, Jkw7G: "
-  number = gets.chomp
+  begin
+    puts
+    puts "Создание поезда"
+    puts "********************"
+    print "Введи номер поезда в формате Q5z-Rs, 6Y5-d9, Jkw7G: "
+    number = gets.chomp
+  rescue 
+    retry
+  ensure
+  end
   select_type
   puts "***************************"
   if @type == :cargo
