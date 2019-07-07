@@ -69,18 +69,20 @@ def create_train
     puts "********************"
     print "Введи номер поезда в формате Q5z-Rs, 6Y5-d9, Jkw7G: "
     number = gets.chomp
-  rescue 
-    retry
+    select_type
+    puts "***************************"
+    if @type == :cargo
+      @trains << (TrainCargo.new number)  
+      puts "Создан поезд - #{number}, тип - грузовой"
+    else 
+      @trains << (TrainPassenger.new number)
+      puts "Создан поезд - #{number}, тип - пассажирсикй"
+    end
+  rescue RuntimeError
+    retry   #@train.valid?(false) # <- Если объект не валидный
+    puts "Вывести ошибку validate!.raise"
   ensure
-  end
-  select_type
-  puts "***************************"
-  if @type == :cargo
-    @trains << (TrainCargo.new number)  
-    puts "Создан поезд - #{number}, тип - грузовой"
-  else 
-    @trains << (TrainPassenger.new number)
-    puts "Создан поезд - #{number}, тип - пассажирсикй"
+    puts "ENSURE TEST"
   end
 end
 
@@ -420,4 +422,4 @@ end
 
 seed
 welcome
-#main_menu
+main_menu

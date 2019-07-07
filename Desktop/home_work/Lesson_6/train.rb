@@ -94,11 +94,5 @@ class Train
     raise "Длина номера поезда не может быть больше 6 символов" if number.length > 6
     raise "Номер поезда не соответсвует формату: Q5z-Rs, 6Y5-d9, Jkw7G " if number !~ NUMBER_FORMAT
   end
-
-  #begin
-   # validate!
-  #rescue
-   # retry
-  #end
   
 end
