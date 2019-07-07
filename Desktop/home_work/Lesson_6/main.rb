@@ -78,11 +78,9 @@ def create_train
       @trains << (TrainPassenger.new number)
       puts "Создан поезд - #{number}, тип - пассажирсикй"
     end
-  rescue RuntimeError
-    retry   #@train.valid?(false) # <- Если объект не валидный
-    puts "Вывести ошибку validate!.raise"
-  ensure
-    puts "ENSURE TEST"
+  rescue RuntimeError => e 
+    puts e.message
+    retry
   end
 end
 
