@@ -12,7 +12,7 @@ class WagonPassenger < Wagon
 
   def counter_busy_seats
     # при вызове метода прибавить единицу к переменной метода
-    @busy_seats += 1
+    @busy_seats += 1 if @busy_seats < @seats
   end
 
   def seats
