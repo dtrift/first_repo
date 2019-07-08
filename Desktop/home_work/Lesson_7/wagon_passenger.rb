@@ -2,7 +2,6 @@ class WagonPassenger < Wagon
   attr_reader :busy_seats
 
   def initialize(seats = 25) # 25 - значение по умолчанию
-    super
     @seats = seats.to_i
     @busy_seats = 0
   end
