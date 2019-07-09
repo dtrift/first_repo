@@ -24,6 +24,10 @@ class Station
   rescue
     false
   end
+
+  def trains_at_station
+    # перебрать элементы массива @@all
+  end
   
   def get_train(train)
     @all_trains << train

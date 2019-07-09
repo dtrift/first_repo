@@ -74,10 +74,7 @@ class Train
     end
     return current_station
   end
-
-  #private 
-  #attr_reader :current_station_index # переменная используется только внутри класса для
-                                     # определения текущей, предыдущей и следующей станции
+  
   def next?
     @current_station_index + 1 < @train_route.all_stations.length
   end

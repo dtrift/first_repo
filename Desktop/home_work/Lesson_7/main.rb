@@ -9,8 +9,6 @@ require_relative 'wagon_passenger.rb'
 require_relative 'route.rb'
 require_relative 'station.rb'
 
-@trains = []
-@stations = []
 @routes = []
 @wagons = []
 
@@ -72,10 +70,10 @@ def create_train
     select_type
     puts "***************************"
     if @type == :cargo
-      @trains << (TrainCargo.new number)  
+      TrainCargo.new number 
       puts "Создан поезд - #{number}, тип - грузовой"
     else 
-      @trains << (TrainPassenger.new number)
+      TrainPassenger.new number
       puts "Создан поезд - #{number}, тип - пассажирсикй"
     end
   rescue RuntimeError => e 
@@ -110,7 +108,7 @@ def create_station
     puts "********************"
     print "Введи название станции: "
     name = gets.chomp
-    @stations << (Station.new name)
+    Station.new name
     puts "Создана станция #{name}"
   rescue RuntimeError => e 
     puts e.message
@@ -408,16 +406,16 @@ def list_stations_trains
 end
 
 def seed
-  @trains << (train1 = TrainCargo.new 'One-01')
-  @trains << (train2 = TrainPassenger.new 'Two02')
-  @trains << (train3 = TrainCargo.new 'Three')
-  @trains << (train4 = TrainPassenger.new 'Four4')
-  @stations << (one = Station.new 'one')
-  @stations << (two = Station.new 'two')
-  @stations << (three = Station.new 'three')
-  @stations << (four = Station.new 'four')
-  @stations << (five = Station.new 'five')
-  @stations << (six = Station.new 'six')
+  train1 = TrainCargo.new 'One-01'
+  train2 = TrainPassenger.new 'Two02'
+  train3 = TrainCargo.new 'Three'
+  train4 = TrainPassenger.new 'Four4'
+  one = Station.new 'one'
+  two = Station.new 'two'
+  three = Station.new 'three'
+  four = Station.new 'four'
+  five = Station.new 'five'
+  six = Station.new 'six'
   @routes << (one = Route.new 'one-six', one, six)
   @routes << (two = Route.new 'two-five', two, five)
 end
