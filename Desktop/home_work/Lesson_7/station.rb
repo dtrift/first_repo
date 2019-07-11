@@ -25,7 +25,7 @@ class Station
     false
   end
 
-  def all_trains(&block)
+  def show_all_trains(&block)
     @all_trains.each { |train| yield(train) }
   end
   

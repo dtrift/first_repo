@@ -4,7 +4,7 @@ class Train
 
   attr_accessor :speed
 
-  attr_reader :number, :train_route, :current_station_index
+  attr_reader :number, :all_wagons, :train_route, :current_station_index
   NUMBER_FORMAT = /^\w\w\w-*\w\w$/
 
   @@all = {}
@@ -35,7 +35,7 @@ class Train
     false
   end
 
-  def all_wagons(&block)
+  def show_all_wagons(&block)
     @all_wagons.each { |wagon| yield(wagon) }
   end
 

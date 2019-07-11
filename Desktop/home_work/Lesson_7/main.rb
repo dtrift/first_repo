@@ -398,13 +398,21 @@ def list_stations_trains
   puts
   puts "Список станций"
   puts "********************"
-  list_stations
-  print "Введи номер станци для просмотра: "
-  st = gets.chomp.to_i
-  st = @stations[st-1] 
-  print "На станции #{st.name} находятся поезда: " 
-  st.all_trains.each { |at| print at, " " }
-  puts 
+  puts
+  Station.all.each do |station| 
+    puts "На станции #{station.name} находится: " 
+    station.show_all_trains do |train| 
+      puts "Поезд - #{train.number}, тип - #{train.type}, количество вагонов - #{train.all_wagons.length}" 
+    end
+  end 
+
+  #list_stations
+  #print "Введи номер станци для просмотра: "
+  #st = gets.chomp.to_i
+  #st = @stations[st-1] 
+  #print "На станции #{st.name} находятся поезда: " 
+  #st.all_trains.each { |at| print at, " " }
+  #puts 
 end
 
 def seed
@@ -433,9 +441,9 @@ def seed
   wp2.get_current_train(train2)
   wp3.get_current_train(train2)
   train1.get_route route1
-  train2.get_route route1
+  train2.get_route route2
 end
 
 seed
 welcome
-#main_menu
+main_menu
