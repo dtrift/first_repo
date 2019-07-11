@@ -1,6 +1,6 @@
 class Station
   include InstanceCounter
-  attr_reader :name, :all_trains, :cargo, :passenger
+  attr_reader :name, :cargo, :passenger
 
   @@all = []
 
@@ -25,8 +25,8 @@ class Station
     false
   end
 
-  def trains_at_station
-    # перебрать элементы массива @@all
+  def all_trains(&block)
+    @all_trains.each { |train| yield(train) }
   end
   
   def get_train(train)

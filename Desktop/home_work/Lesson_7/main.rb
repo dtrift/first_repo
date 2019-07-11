@@ -9,6 +9,8 @@ require_relative 'wagon_passenger.rb'
 require_relative 'route.rb'
 require_relative 'station.rb'
 
+@trains = []
+@stations = []
 @routes = []
 @wagons = []
 
@@ -406,18 +408,32 @@ def list_stations_trains
 end
 
 def seed
-  train1 = TrainCargo.new 'One-01'
-  train2 = TrainPassenger.new 'Two02'
-  train3 = TrainCargo.new 'Three'
-  train4 = TrainPassenger.new 'Four4'
-  one = Station.new 'one'
-  two = Station.new 'two'
-  three = Station.new 'three'
-  four = Station.new 'four'
-  five = Station.new 'five'
-  six = Station.new 'six'
-  @routes << (one = Route.new 'one-six', one, six)
-  @routes << (two = Route.new 'two-five', two, five)
+  @trains << (train1 = TrainCargo.new 'One-01')
+  @trains << (train2 = TrainPassenger.new 'Two02')
+  @stations << (station1 = Station.new 'one')
+  @stations << (station2 = Station.new 'two')
+  @stations << (station3 = Station.new 'three')
+  @stations << (station4 = Station.new 'four')
+  @stations << (station5 = Station.new 'five')
+  @stations << (station6 = Station.new 'six')
+  @routes << (route1 = Route.new 'OneSix', station1, station6)
+  @routes << (route2 = Route.new 'TwoFive', station2, station5)
+  @wagons << (wc1 = WagonCargo.new 1000)
+  @wagons << (wc2 = WagonCargo.new 500)
+  @wagons << (wc3 = WagonCargo.new 800)
+  @wagons << (wc4 = WagonCargo.new)
+  @wagons << (wp1 = WagonPassenger.new 25)
+  @wagons << (wp2 = WagonPassenger.new 20)
+  @wagons << (wp3 = WagonPassenger.new 15)
+  @wagons << (wp4 = WagonPassenger.new)
+  wc1.get_current_train(train1)
+  wc2.get_current_train(train1)
+  wc3.get_current_train(train1)
+  wp1.get_current_train(train2)
+  wp2.get_current_train(train2)
+  wp3.get_current_train(train2)
+  train1.get_route route1
+  train2.get_route route1
 end
 
 seed

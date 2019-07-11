@@ -4,13 +4,17 @@ class Train
 
   attr_accessor :speed
 
-  attr_reader :number, :all_wagons, :train_route, :current_station_index
+  attr_reader :number, :train_route, :current_station_index
   NUMBER_FORMAT = /^\w\w\w-*\w\w$/
 
   @@all = {}
 
   def self.find(number)
     @@all[number] 
+  end
+
+  def self.all
+    @@all 
   end
                                                                    
   def initialize(number)
@@ -29,6 +33,10 @@ class Train
     true 
   rescue
     false
+  end
+
+  def all_wagons(&block)
+    @all_wagons.each { |wagon| yield(wagon) }
   end
 
   def add_wagon(wagon)
@@ -74,7 +82,7 @@ class Train
     end
     return current_station
   end
-  
+
   def next?
     @current_station_index + 1 < @train_route.all_stations.length
   end
