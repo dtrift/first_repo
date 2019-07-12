@@ -402,17 +402,16 @@ def list_stations_trains
   Station.all.each do |station| 
     puts "На станции #{station.name} находится: " 
     station.show_all_trains do |train| 
-      puts "Поезд - #{train.number}, тип - #{train.type}, количество вагонов - #{train.all_wagons.length}" 
+      puts "Поезд - #{train.number}, тип - #{train.type}, количество вагонов - #{train.all_wagons.length}"
+      train.show_all_wagons do |wagon|
+        if wagon.type == :passenger
+          puts wagon.type, wagon.seats, wagon.busy_seats, wagon.free_seats
+        else
+          puts wagon.type, wagon.volume, wagon.busy_volume, wagon.free_volume
+        end
+      end 
     end
   end 
-
-  #list_stations
-  #print "Введи номер станци для просмотра: "
-  #st = gets.chomp.to_i
-  #st = @stations[st-1] 
-  #print "На станции #{st.name} находятся поезда: " 
-  #st.all_trains.each { |at| print at, " " }
-  #puts 
 end
 
 def seed
@@ -436,10 +435,8 @@ def seed
   @wagons << (wp4 = WagonPassenger.new)
   wc1.get_current_train(train1)
   wc2.get_current_train(train1)
-  wc3.get_current_train(train1)
   wp1.get_current_train(train2)
   wp2.get_current_train(train2)
-  wp3.get_current_train(train2)
   train1.get_route route1
   train2.get_route route2
 end
