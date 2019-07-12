@@ -34,7 +34,7 @@ def main_menu
     puts "2. Создать станцию"
     puts "3. Создать и редактировать маршрут"
     puts "4. Назначить маршрут поезду"
-    puts "5. Добавить/оцепить вагон"
+    puts "5. Управление вагонами"
     puts "6. Отправить поезд по маршруту"
     puts "7. Показать список станций и список поездов на станции"
     puts "0. Выход"
@@ -280,7 +280,8 @@ def manage_wagon
     puts "1. Создать вагон"
     puts "2. Прицепить вагон"
     puts "3. Отцепить вагон"
-    puts "4. Вернуться в главное меню"
+    puts "4. Заполнить места/объем"
+    puts "5. Вернуться в главное меню"
     print "Выбери номер меню: "
     wagon_item = gets.chomp.to_i
     case wagon_item
@@ -291,22 +292,35 @@ def manage_wagon
     when 3
       unhook_wagon
     when 4
+      busy_wagon
+    when 5
       main_menu
-    else puts "Выбери 1, 2, 3 или 4"
+    else puts "Выбери 1, 2, 3, 4 или 5"
     end
   end
 end
     
 def create_wagon
-  puts
-  puts "Создание вагона"
-  puts "********************"
-  select_type
-  if @type == :cargo
-    @wagons << (WagonCargo.new)
-  else @wagons << (WagonPassenger.new)
+  begin
+    puts
+    puts "Создание вагона"
+    puts "********************"
+    select_type
+    if @type == :cargo
+      print "Введи объем вагона (значение не должно превышать - 1000) : "
+      volume = gets.chomp.to_i
+      @wagons << (WagonCargo.new volume)
+      puts "Создан вагон - #{@type}, объем - #{volume}"
+    else 
+      print "Введи количество мест в вагоне (значение не должно превышать - 25): "
+      seats = gets.chomp.to_i
+      @wagons << (WagonPassenger.new seats)
+      puts "Создан вагон - #{@type}, количество мест - #{seats}"
+    end
+  rescue RuntimeError => e 
+    puts e.message
+    retry
   end
-  puts "Создан вагон #{@type}"
 end
     
 def hook_wagon
@@ -354,6 +368,29 @@ def unhook_wagon
   end
 end
 
+def busy_wagon
+  puts 
+  puts "Управлене объемом/местами"
+  puts "********************"
+  list_wagons
+  print "Выбери вагон для управленя объемом/местами: "
+  wagon = gets.chomp.to_i
+  wagon = @wagons[wagon-1]
+  puts "Выбран вагон #{wagon}"
+  if wagon.type == :cargo
+    puts "Вагон #{wagon.number} #{wagon.type}, cвободный объем вагона #{wagon.free_volume}"
+    print "Введи занимаемый объем: "
+    add_busy_volume = gets.chomp.to_i
+    wagon.add_busy_volume(add_busy_volume)
+    puts
+    puts "********************"
+    puts "Вагон #{wagon.number} #{wagon.type}, cвободный объем вагона #{wagon.free_volume}"
+  else 
+    wagon.add_busy_seats
+    puts "Вагон #{wagon.number} #{wagon.type}, cвободный объем вагона #{wagon.free_seats}"
+  end
+end
+
 def send_train
   puts "Движение поезда по маршруту"
   puts "********************"
@@ -390,7 +427,7 @@ end
 
 def list_wagons
   @wagons.each.with_index do |wagon, index|
-    puts "#{index+1}. Вагон #{@wagons[index].type} => поезд: #{@wagons[index].current_train}"  
+    puts "#{index+1}. Вагон номер #{@wagons[index].number} #{@wagons[index].type} => поезд: #{@wagons[index].current_train}"  
   end
 end
           
@@ -405,9 +442,9 @@ def list_stations_trains
       puts "Поезд - #{train.number}, тип - #{train.type}, количество вагонов - #{train.all_wagons.length}"
       train.show_all_wagons do |wagon|
         if wagon.type == :passenger
-          puts wagon.type, wagon.seats, wagon.busy_seats, wagon.free_seats
+          puts "Номер вагона - #{wagon.number}, тип - #{wagon.type}, количество мест - #{wagon.seats}, занятых мест - #{wagon.busy_seats}, свободных мест - #{wagon.free_seats}"
         else
-          puts wagon.type, wagon.volume, wagon.busy_volume, wagon.free_volume
+          puts "Номер вагона - #{wagon.number}, тип - #{wagon.type}, объем - #{wagon.volume}, занятый объем - #{wagon.busy_volume}, свободный объем - #{wagon.free_volume}"
         end
       end 
     end
@@ -443,4 +480,4 @@ end
 
 seed
 welcome
-main_menu
+#main_menu

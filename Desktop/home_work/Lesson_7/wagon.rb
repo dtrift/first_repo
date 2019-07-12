@@ -1,7 +1,7 @@
 class Wagon
   include Factory
 
-  attr_reader :current_train
+  attr_reader :number, :current_train
 
   def initialize
     @current_train = nil

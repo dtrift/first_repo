@@ -1,10 +1,14 @@
 class WagonCargo < Wagon
+  include InstanceCounter
+
   attr_reader :volume, :busy_volume
 
   def initialize(volume = 1000)
     @volume = volume.to_i
     @busy_volume = 0
     validate!
+    register_instance
+    @number = self.class.instances
   end
 
   def valid?

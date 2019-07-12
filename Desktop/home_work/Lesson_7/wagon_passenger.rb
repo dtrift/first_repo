@@ -1,10 +1,14 @@
 class WagonPassenger < Wagon
+  include InstanceCounter
+
   attr_reader  :seats, :busy_seats
 
   def initialize(seats = 25)
     @seats = seats.to_i
     @busy_seats = 0
     validate!
+    register_instance
+    @number = self.class.instances
   end
 
   def valid?
