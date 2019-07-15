@@ -1,23 +1,22 @@
+# frozen_string_literal: true
+
 class Wagon
   include InstanceCounter
   include Factory
 
-  attr_reader :current_train
+  attr_reader :number, :current_train
 
-  def initialize(*args)
+  def initialize(*_args)
     @current_train = nil
     validate!
     register_instance
-  end
-
-  def number
-    self.class.instances
+    @number = self.class.instances
   end
 
   def valid?
     validate!
-    true 
-  rescue
+    true
+  rescue StandardError
     false
   end
 
@@ -28,5 +27,4 @@ class Wagon
   def del_current_train
     @current_train = nil
   end
-
 end

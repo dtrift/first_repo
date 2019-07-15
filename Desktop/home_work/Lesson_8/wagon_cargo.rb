@@ -1,23 +1,13 @@
-class WagonCargo < Wagon
-  #include InstanceCounter
+# frozen_string_literal: true
 
+class WagonCargo < Wagon
   attr_reader :volume, :busy_volume
 
   def initialize(volume = 1000)
     @volume = volume.to_i
     @busy_volume = 0
     super
-    #validate!
-    #register_instance
-    #@number = self.class.instances
   end
-
-  #def valid?
-  #  validate!
-  #  true 
-  #rescue
-  #  false
-  #end
 
   def type
     :cargo
@@ -29,12 +19,11 @@ class WagonCargo < Wagon
 
   def free_volume
     @volume - @busy_volume
-  end 
+  end
 
-  protected 
+  protected
 
   def validate!
-    raise "Объем грузового вагона не может превышать 1000" if volume > 1000 
+    raise 'Объем грузового вагона не может превышать 1000' if volume > 1000
   end
-  
 end

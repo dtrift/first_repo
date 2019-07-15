@@ -1,22 +1,13 @@
-class WagonPassenger < Wagon
-  #include InstanceCounter
+# frozen_string_literal: true
 
-  attr_reader  :seats, :busy_seats
+class WagonPassenger < Wagon
+  attr_reader :seats, :busy_seats
 
   def initialize(seats = 25)
     @seats = seats.to_i
     @busy_seats = 0
     super
-    #validate!
-    #register_instance
   end
-
-  #def valid?
-  #  validate!
-  #  true 
-  #rescue
-  #  false
-  #end
 
   def type
     :passenger
@@ -30,10 +21,9 @@ class WagonPassenger < Wagon
     @seats - @busy_seats
   end
 
-  protected 
-  
-  def validate!
-    raise "Количество мест в пассажирском вагоне не должно превышать 25" if seats > 25
-  end
+  protected
 
+  def validate!
+    raise 'Количество мест в пассажирском вагоне не должно превышать 25' if seats > 25
+  end
 end

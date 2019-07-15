@@ -1,4 +1,6 @@
-class Route  
+# frozen_string_literal: true
+
+class Route
   include InstanceCounter
 
   attr_reader :first_station, :last_station, :all_stations, :name
@@ -22,23 +24,22 @@ class Route
 
   def valid?
     validate!
-    true 
-  rescue
+    true
+  rescue StandardError
     false
   end
 
   def add_station(station)
     @all_stations.insert(-2, station)
   end
-  
+
   def delete_station(station)
     @all_stations.delete(station)
   end
 
   protected
-  
-  def validate!
-    raise "Название маршрута не может быть пустым!" if name.nil? 
-  end
 
+  def validate!
+    raise 'Название маршрута не может быть пустым!' if name.nil?
+  end
 end
