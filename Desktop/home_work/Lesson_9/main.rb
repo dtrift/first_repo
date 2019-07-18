@@ -66,23 +66,25 @@ def main_menu
 end
 
 def create_train
-  puts
-  puts 'Создание поезда'
-  puts '********************'
-  print 'Введи номер поезда в формате Q5z-Rs, 6Y5-d9, Jkw7G: '
-  number = gets.chomp
-  select_type
-  puts '***************************'
-  if @type == :cargo
-    @trains << (TrainCargo.new number)
-    puts "Создан поезд - #{number}, тип - грузовой"
-  else
-    @trains << (TrainPassenger.new number)
-    puts "Создан поезд - #{number}, тип - пассажирсикй"
+  begin
+    puts
+    puts 'Создание поезда'
+    puts '********************'
+    print 'Введи номер поезда в формате Q5z-Rs, 6Y5-d9, Jkw7G: '
+    number = gets.chomp
+    select_type
+    puts '***************************'
+    if @type == :cargo
+      @trains << (TrainCargo.new number)
+      puts "Создан поезд - #{number}, тип - грузовой"
+    else
+      @trains << (TrainPassenger.new number)
+      puts "Создан поезд - #{number}, тип - пассажирсикй"
+    end
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
-rescue RuntimeError => e
-  puts e.message
-  retry
 end
 
 def select_type
@@ -106,16 +108,18 @@ def select_type
 end
 
 def create_station
-  puts
-  puts 'Создание станции'
-  puts '********************'
-  print 'Введи название станции: '
-  name = gets.chomp
-  @list_stations << (Station.new name)
-  puts "Создана станция #{name}"
-rescue RuntimeError => e
-  puts e.message
-  retry
+  begin
+    puts
+    puts 'Создание станции'
+    puts '********************'
+    print 'Введи название станции: '
+    name = gets.chomp
+    @stations << (Station.new name)
+    puts "Создана станция #{name}"
+  rescue RuntimeError => e
+    puts e.message
+    retry
+  end
 end
 
 def manage_route
@@ -301,24 +305,26 @@ def manage_wagon
 end
 
 def create_wagon
-  puts
-  puts 'Создание вагона'
-  puts '********************'
-  select_type
-  if @type == :cargo
-    print 'Введи объем вагона (значение не должно превышать - 1000) : '
-    volume = gets.chomp.to_i
-    @wagons << (WagonCargo.new volume)
-    puts "Создан вагон - #{@type}, объем - #{volume}"
-  else
-    print 'Введи количество мест в вагоне (значение не должно превышать - 25): '
-    seats = gets.chomp.to_i
-    @wagons << (WagonPassenger.new seats)
-    puts "Создан вагон - #{@type}, количество мест - #{seats}"
+  begin
+    puts
+    puts 'Создание вагона'
+    puts '********************'
+    select_type
+    if @type == :cargo
+      print 'Введи объем вагона (значение не должно превышать - 1000) : '
+      volume = gets.chomp.to_i
+      @wagons << (WagonCargo.new volume)
+      puts "Создан вагон - #{@type}, объем - #{volume}"
+    else
+      print 'Введи количество мест в вагоне (значение не должно превышать - 25): '
+      seats = gets.chomp.to_i
+      @wagons << (WagonPassenger.new seats)
+      puts "Создан вагон - #{@type}, количество мест - #{seats}"
+    end
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
-rescue RuntimeError => e
-  puts e.message
-  retry
 end
 
 def hook_wagon
@@ -364,6 +370,7 @@ def unhook_wagon
     wagon.del_current_train
     train.delete_wagon(wagon)
     puts "Вагон #{wagon} отцеплен от поезда #{train}"
+    end
   end
 end
 
