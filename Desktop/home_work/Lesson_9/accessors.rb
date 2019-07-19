@@ -10,7 +10,7 @@ module Accessors
     def attr_accessor_with_history(*names)
       names.each do |name|
         var_name = "@#{name}".to_sym
-        var_name_history = "#{name}"
+        define_name = "#{name}"
         var_name_history_values = []
         define_method(name) { instance_variable_get(var_name) }
         define_method("#{name}=".to_sym) do |value|
@@ -26,7 +26,7 @@ module Accessors
 
   module InstanceMethods 
 
-    def "#{var_name_history}_history"
+    def "#{define_name}_history"
       var_name_history_values
     end
 
