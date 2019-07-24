@@ -34,6 +34,12 @@ module Validation
       # Получить значение первого элемента вложенного массива и 
       # сравнить его с условием второго элемента вложенного массива и
       # 
+      @validations.each do |validation|
+        attr_name = validation[0]
+        validation = validation[1]
+        other = validation[2]
+      end
+     
     end
 
     def valid?
