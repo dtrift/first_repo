@@ -13,16 +13,16 @@ module Validation
     # @validations << {} - или лучше использовать массив хэшей?
     end
 
-    def presence
-      raise 'Name can not be nil!' if @attr_name.empty? || @attr_name.nil?
+    def presence(attr_name)
+      raise 'Name can not be nil!' if attr_name.empty? || attr_name.nil?
     end
 
-    def format
-      raise 'Wrong format!' if @validation !~ @other
+    def format(validation, other)
+      raise 'Wrong format!' if validation !~ other
     end
 
-    def type
-      raise 'Wrong type!' if @validation.class != @other
+    def type(attr_name, other)
+      raise 'Wrong type!' if validation.class != other
     end
 
   end
@@ -33,7 +33,7 @@ module Validation
       # Перебрать массив массивов @validations  
       # Получить значение первого элемента вложенного массива и 
       # сравнить его с условием второго элемента вложенного массива и
-      #
+      # 
     end
 
     def valid?
