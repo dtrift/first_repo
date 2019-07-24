@@ -7,15 +7,34 @@ module Validation
 
   module ClassMethods 
 
-    def validate(attr_name, validation_type, other_attr = nil)
-      @attr_name = attr_name
-      @validation_type = validation_type
-      @other_attr = other_attr
+    def validate(attr_name, validation, other = nil)
+      @validations ||= []
+      @validations << [attr_name, validation, other]
+    # @validations << {} - или лучше использовать массив хэшей?
+    end
+
+    def presence
+      raise 'Name can not be nil!' if @attr_name.empty? || @attr_name.nil?
+    end
+
+    def format
+      raise 'Wrong format!' if @validation !~ @other
+    end
+
+    def type
+      raise 'Wrong type!' if @validation.class != @other
     end
 
   end
 
   module InstanceMethods
+
+    def validate!
+      # Перебрать массив массивов @validations  
+      # Получить значение первого элемента вложенного массива и 
+      # сравнить его с условием второго элемента вложенного массива и
+      #
+    end
 
     def valid?
       validate!
@@ -23,29 +42,6 @@ module Validation
     rescue StandardError
       false
     end
-
-    protected
-
-    # validate :name, :presence
-    # validate :number, :format, /A-Z{0,3}/
-    # validate :station, :type, RailwayStation
-
-    def presence
-      raise 'Name can not be nil!' if @attr_name.empty? || @attr_name.nil?
-    end
-
-    def format
-      raise 'Wrong format!' if @validation_type !~ @other_attr
-    end
-
-    def type
-      raise 'Wrong type!' if @validation_type.class != @other_attr
-    end
-
-    def validate!
-
-    end
-
   end
 
 end
