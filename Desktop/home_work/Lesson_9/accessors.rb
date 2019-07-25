@@ -25,8 +25,7 @@ module Accessors
       attr_name = "@#{attr}".to_sym
       define_method(attr) { instance_variable_get(attr_name) }
       if attr_class == self.class.attr
-        define_method("#{attr}=".to_sym) do |value|
-          instance_variable_set(attr_name, value)
+        define_method("#{attr}=".to_sym) { |value| instance_variable_set(attr_name, value) }
         end
       else
         raise "Wrong attribute class!"

@@ -3,11 +3,16 @@
 class Train
   include Factory
   include InstanceCounter
+  include Validation
 
   attr_accessor :speed
 
   attr_reader :number, :all_wagons, :train_route, :current_station_index
   NUMBER_FORMAT = /^\w\w\w-*\w\w$/.freeze
+
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+  validate :number, :type, Train
 
   @@all = {}
 
@@ -30,12 +35,12 @@ class Train
     register_instance
   end
 
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
+  # def valid?
+  #  validate!
+  #  true
+  # rescue StandardError
+  #  false
+  # end
 
   def show_all_wagons
     @all_wagons.each { |wagon| yield(wagon) }
@@ -95,10 +100,10 @@ class Train
 
   protected
 
-  def validate!
-    raise 'Номер поезда не может быть пустым!' if number.nil?
-    raise 'Длина номера поезда не может быть меньше 5 символов' if number.length < 5
-    raise 'Длина номера поезда не может быть больше 6 символов' if number.length > 6
-    raise 'Номер поезда не соответсвует формату: Q5z-Rs, 6Y5-d9, Jkw7G ' if number !~ NUMBER_FORMAT
-  end
+  # def validate!
+  #  raise 'Номер поезда не может быть пустым!' if number.nil?
+  #  raise 'Длина номера поезда не может быть меньше 5 символов' if number.length < 5
+  #  raise 'Длина номера поезда не может быть больше 6 символов' if number.length > 6
+  #  raise 'Номер поезда не соответсвует формату: Q5z-Rs, 6Y5-d9, Jkw7G ' if number !~ NUMBER_FORMAT
+  # end
 end
