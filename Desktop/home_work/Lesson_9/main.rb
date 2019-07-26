@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'validation'
 require_relative 'factory.rb'
 require_relative 'instance_counter.rb'
 require_relative 'train.rb'
