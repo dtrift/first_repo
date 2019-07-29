@@ -3,7 +3,7 @@ module Validation
   def self.included(base)
     base.extend ClassMethods
     base.send :include, InstanceMethods
-    base.validations = []
+    # base.validations = []
   end
 
   module ClassMethods 
@@ -14,23 +14,23 @@ module Validation
       @validations << { attr_name: attr_name, validation_type: validation_type, params: params }
     end
 
-    def validate_presence(attr_name)
-      raise 'Name can not be nil!' if attr_name.empty? || attr_name.nil?
-    end
+    # def validate_presence(attr_name)
+    #   raise 'Name can not be nil!' if attr_name.empty? || attr_name.nil?
+    # end
 
-    def validate_format(validation_type, params)
-      raise 'Wrong format!' if validation_type !~ params
-    end
+    # def validate_format(validation_type, params)
+    #   raise 'Wrong format!' if validation_type !~ params
+    # end
 
-    def validate_type(attr_name, params)
-      raise 'Wrong type!' if validation_type.class != params
-    end
+    # def validate_type(attr_name, params)
+    #   raise 'Wrong type!' if validation_type.class != params
+    # end
   end
 
   module InstanceMethods
 
     def validate!
-      self.class.validations.each do |attr_name, validation_type, params|
+      self.class.validations.to_a.each do |attr_name, validation_type, params|
         var_name = "@#{attr_name}".to_sym
         define_method(attr_name) { instance_variable_get(var_name) }
         method_name = "validate_#{validation_type}".to_sym
@@ -43,6 +43,20 @@ module Validation
       true
     rescue StandardError
       false
+    end
+
+    protected
+
+    def validate_presence(attr_name)
+      raise 'Name can not be nil!' if attr_name.empty? || attr_name.nil?
+    end
+
+    def validate_format(validation_type, params)
+      raise 'Wrong format!' if validation_type !~ params
+    end
+
+    def validate_type(attr_name, params)
+      raise 'Wrong type!' if validation_type.class != params
     end
   end
 end

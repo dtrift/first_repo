@@ -462,6 +462,7 @@ end
 def seed
   @trains << (train1 = TrainCargo.new 'One-01')
   @trains << (train2 = TrainPassenger.new 'Two02')
+  @trains << (train3 = TrainCargo.new 'TestWrongName')
   @stations << (station1 = Station.new 'one')
   @stations << (station2 = Station.new 'two')
   @stations << (station3 = Station.new 'three')
