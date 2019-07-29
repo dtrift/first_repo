@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-# include Validation
 
 class TrainPassenger < Train
+  include Validation
+
   def type
     :passenger
   end

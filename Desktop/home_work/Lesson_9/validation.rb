@@ -3,20 +3,20 @@ module Validation
   def self.included(base)
     base.extend ClassMethods
     base.send :include, InstanceMethods
-    base.validations = []
+    # base.validations = []
   end
 
   module ClassMethods 
     attr_accessor :validations
 
     def validate(attr_name, validation_type, params = nil)
-      @validations ||= []
-      @validations << { attr_name: attr_name, validation_type: validation_type, params: params }
+      validations ||= []
+      validations << { attr_name: attr_name, validation_type: validation_type, params: params }
     end
   end
 
   module InstanceMethods
-
+  
     def validate!
       self.class.validations.each do |validation|
         puts validation
