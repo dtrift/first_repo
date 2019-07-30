@@ -6,7 +6,7 @@ class Station
 
   attr_reader :name, :cargo, :passenger
 
-  validate :name, :precence
+  validate :name, :presence
 
   @@all = []
 

@@ -6,7 +6,7 @@ class Route
 
   attr_reader :first_station, :last_station, :all_stations, :name
 
-  validate :name, :precence
+  validate :name, :presence
 
   @@all = []
 
