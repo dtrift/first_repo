@@ -2,7 +2,11 @@
 
 class Station
   include InstanceCounter
+  include Validation
+
   attr_reader :name, :cargo, :passenger
+
+  validate :name, :precence
 
   @@all = []
 
@@ -18,13 +22,6 @@ class Station
     validate!
     @@all << self
     register_instance
-  end
-
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
   end
 
   def show_all_trains
@@ -51,9 +48,4 @@ class Station
     end
   end
 
-  protected
-
-  def validate!
-    raise 'Название станции не может быть пустым!' if name.nil?
-  end
 end

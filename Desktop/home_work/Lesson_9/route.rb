@@ -2,8 +2,11 @@
 
 class Route
   include InstanceCounter
+  include Validation
 
   attr_reader :first_station, :last_station, :all_stations, :name
+
+  validate :name, :precence
 
   @@all = []
 
@@ -22,13 +25,6 @@ class Route
     register_instance
   end
 
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
-
   def add_station(station)
     @all_stations.insert(-2, station)
   end
@@ -37,9 +33,4 @@ class Route
     @all_stations.delete(station)
   end
 
-  protected
-
-  def validate!
-    raise 'Название маршрута не может быть пустым!' if name.nil?
-  end
 end

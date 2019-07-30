@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WagonPassenger < Wagon
+  include Validation
+  
   attr_reader :seats, :busy_seats
 
   def initialize(seats = 25)

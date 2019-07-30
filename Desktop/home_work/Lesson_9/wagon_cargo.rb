@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WagonCargo < Wagon
+  include Validation
+  
   attr_reader :volume, :busy_volume
 
   def initialize(volume = 1000)
