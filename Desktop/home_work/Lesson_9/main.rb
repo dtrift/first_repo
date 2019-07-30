@@ -149,25 +149,30 @@ def manage_route
 end
 
 def create_route
-  puts
-  puts 'Создание маршрута'
-  puts '********************'
-  print 'Введи название маршрута: '
-  name = gets.chomp
-  puts 'Список станций:'
-  list_stations
-  print 'Выбери номер начальной станции: '
-  first_station = gets.chomp.to_i
-  first_station = @stations[first_station - 1]
-  puts "Начальная станция #{first_station.name}"
-  puts
-  list_stations
-  print 'Выбери номер конечной станции: '
-  last_station = gets.chomp.to_i
-  last_station = @stations[last_station - 1]
-  puts "Конечная станция #{last_station.name}"
-  @routes << (Route.new name, first_station, last_station)
-  puts "Создан маршрут #{name} - начальная станция #{first_station.name}, конечная станция #{last_station.name}"
+  begin
+    puts
+    puts 'Создание маршрута'
+    puts '********************'
+    print 'Введи название маршрута: '
+    name = gets.chomp
+    puts 'Список станций:'
+    list_stations
+    print 'Выбери номер начальной станции: '
+    first_station = gets.chomp.to_i
+    first_station = @stations[first_station - 1]
+    puts "Начальная станция #{first_station.name}"
+    puts
+    list_stations
+    print 'Выбери номер конечной станции: '
+    last_station = gets.chomp.to_i
+    last_station = @stations[last_station - 1]
+    puts "Конечная станция #{last_station.name}"
+    @routes << (Route.new name, first_station, last_station)
+    puts "Создан маршрут #{name} - начальная станция #{first_station.name}, конечная станция #{last_station.name}"
+  rescue RuntimeError => e
+    puts e.message
+    retry
+  end
 end
 
 def edit_route
